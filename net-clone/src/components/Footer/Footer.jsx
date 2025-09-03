@@ -62,7 +62,7 @@ const Footer = () => {
         </ul>
       </div>
 
-      <div className="footer-icons">
+      {/* <div className="footer-icons">
         <a href="#">
           <i className="fab fa-facebook-square"></i>
         </a>
@@ -75,9 +75,9 @@ const Footer = () => {
         <a href="#">
           <i className="fab fa-youtube"></i>
         </a>
-      </div>
+      </div> */}
 
-      <p className="footer-note">© 2025 Netflix Clone. All rights reserved.</p>
+      <p className="footer-note">© 2025 Netflix Clone. Abel.</p>
     </footer>
   );
 };
