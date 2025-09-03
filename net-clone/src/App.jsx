@@ -1,11 +1,11 @@
- 
-
+ import Home from "./Pages/Home/Home"
+import "./App.css"
 function App() {
  
 
   return (
-    <div>
-      <h1>Netflix-Clone-2025</h1>
+    <div className="app">
+      <Home />
     </div>
   )
 }
