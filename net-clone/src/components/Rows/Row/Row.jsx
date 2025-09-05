@@ -1,53 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import axios from "../../../utils/axios";
 import "./row.css";
+import movieTrailer from "movie-trailer";
+import YouTube from "react-youtube";
 
 const Row = ({ title, fetchUrl, isLargeRow }) => {
     const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [trailerUrl, setTrailerUrl] = useState("");
     const base_url = "https://image.tmdb.org/t/p/original";
 
     useEffect(() => {
-        // Define and immediately call the async function
         const fetchData = async () => {
             try {
-                setLoading(true);
                 const request = await axios.get(fetchUrl);
-                console.log("API Response:", request.data); // Debug log
+                console.log("API Response:", request.data);
                 setMovies(request.data.results || []);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setMovies([]); // Set empty array on error
-            } finally {
-                setLoading(false);
+                setMovies([]);
             }
         };
 
         fetchData();
-    }, [fetchUrl]); // Add fetchUrl as dependency
+    }, [fetchUrl]);
 
-    if (loading) {
-        return (
-            <div className="row">
-                <h2>{title}</h2>
-                <div className="row__loading">Loading...</div>
-            </div>
-        );
-    }
+    const opts = {
+        height: "390",
+        width: "100%",
+        playerVars: {
+            autoplay: 1,
+        },
+    };
+
+    const handleClick = async (movie) => {
+        if (trailerUrl) {
+            setTrailerUrl('');
+        } else {
+            try {
+                const url = await movieTrailer(movie?.name || movie?.title || "");
+                if (url) {
+                    const urlParams = new URLSearchParams(new URL(url).search);
+                    const videoId = urlParams.get('v');
+                    setTrailerUrl(videoId || '');
+                } else {
+                    console.log("No trailer found");
+                }
+            } catch (error) {
+                console.log("Trailer not found:", error);
+                setTrailerUrl('');
+            }
+        }
+    };
 
     return (
         <div className="row">
             <h2>{title}</h2>
             <div className="row__posters">
-                {movies.map((movie) => (
+                {movies && movies.length > 0 ? movies.map((movie) => (
                     <img
                         key={movie.id}
+                        onClick={() => handleClick(movie)}
                         className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                         src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
                         alt={movie.name || movie.title}
                     />
-                ))}
+                )) : <div>No movies found</div>}
             </div>
+            {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
         </div>
     );
 };
