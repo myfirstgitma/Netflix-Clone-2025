@@ -25,9 +25,9 @@ const RowList = () => {
         fetchUrl={requests.fetchHorrorMovies}
         isLargeRow={true}/>
 
-         < Row title="ROMANCE MOVIES"
+         {/* < Row title="ROMANCE MOVIES"
         fetchUrl={requests.fetchRomanceMovies}
-        isLargeRow={true}/>
+        isLargeRow={true}/> */}
 
          < Row title="DOCUMENTARIES"
         fetchUrl={requests.fetchDocumentaries}
