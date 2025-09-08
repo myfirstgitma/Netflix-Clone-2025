@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from "../../../utils/axios";
 import "./row.css";
-import movieTrailer from "movie-trailer";
-import YouTube from "react-youtube";
+import movieTrailer from "movie-trailer";  //a package to search movie trailer from youtube
+import YouTube from "react-youtube";//to embed youtube video in our react app
 
 const Row = ({ title, fetchUrl, isLargeRow }) => {
     const [movies, setMovies] = useState([]);
@@ -43,7 +43,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
                     const videoId = urlParams.get('v');
                     setTrailerUrl(videoId || '');
                 } else {
-                    console.log("No trailer found");
+                    console.log("Error: No trailer found");
                 }
             } catch (error) {
                 console.log("Trailer not found:", error);

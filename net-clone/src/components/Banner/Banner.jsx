@@ -9,14 +9,14 @@ const Banner = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const request = await axios.get(requests.fetchTrending)
-        const results = request.data.results
-        const randomIndex = Math.floor(Math.random() * results.length)
+        const response = await axios.get(requests.fetchTrending)
+        const results = response.data.results //data fetch by the request variable will be used here
+        const randomIndex = Math.floor(Math.random() * results.length) //random numbers floored to acces the
         setMovie(results[randomIndex])
       } catch (error) {
         console.error("Error fetching data:", error)
       }
-    }
+    } 
 
     fetchData()
   }, [])
