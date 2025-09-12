@@ -11,7 +11,7 @@ const Banner = () => {
       try {
         const response = await axios.get(requests.fetchTrending)
         const results = response.data.results //data fetch by the request variable will be used here
-        const randomIndex = Math.floor(Math.random() * results.length) //random numbers floored to acces the
+        const randomIndex = Math.floor(Math.random() * results.length) //random numbers floored to acces the posters
         setMovie(results[randomIndex])
       } catch (error) {
         console.error("Error fetching data:", error)
